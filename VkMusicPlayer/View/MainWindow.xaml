@@ -1,0 +1,120 @@
+﻿<Window x:Class="VkMusicPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cc="clr-namespace:VkMusicPlayer.Styles.Controls"
+        Style="{StaticResource VS2012WindowStyle}"
+        Icon="/VkMusicPlayer;component/Images/VK_Logo_Small.png"
+        MinWidth="350px"
+        MinHeight="100px"
+        Name="ThisWindow"
+        Title="Музыка ВКонтакте" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46px" />
+            <RowDefinition Height="40px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <cc:VKStreamingPanel
+            PlayingAudio="{Binding Path=DataContext.CurrentAudio, 
+            UpdateSourceTrigger=PropertyChanged,
+            Mode=TwoWay,
+            ElementName=ThisWindow}" 
+            Test="{Binding Path=DataContext.SelectedAudioIdx, Mode=TwoWay, ElementName=ThisWindow, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="0" Width="50" HorizontalAlignment="Right" Panel.ZIndex="5" Content="{Binding Path=StringAudioIdx}"/>
+        <!--
+        <Grid Grid.Row="0" Background="#F0F1F2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10px" />
+                <ColumnDefinition Width="22px" />
+                <ColumnDefinition Width="21px" />
+                <ColumnDefinition Width="21px" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20px"/>
+                <ColumnDefinition Width="20px" />
+                <ColumnDefinition Width="10px" />
+            </Grid.ColumnDefinitions>
+            <cc:ImageButton Grid.Column="1" Height="22" Hovered="/VkMusicPlayer;component/Images/btn-play-hovered.gif" Normal="/VkMusicPlayer;component/Images/btn-play-normal.gif" Pressed="/VkMusicPlayer;component/Images/btn-play-pressed.gif" Foreground="{x:Null}" ImageButtonCommand="{Binding PlayCommand}"/>
+            <cc:ImageButton Grid.Column="2" Height="10" Width="13" Hovered="/VkMusicPlayer;component/Images/btn-prev-hovered.gif" Normal="/VkMusicPlayer;component/Images/btn-prev-normal.gif" Pressed="/VkMusicPlayer;component/Images/btn-prev-pressed.gif" Foreground="{x:Null}" Margin="3 0 3 0"/>
+            <cc:ImageButton Grid.Column="3" Height="10" Width="13" Hovered="/VkMusicPlayer;component/Images/btn-next-hovered.gif" Normal="/VkMusicPlayer;component/Images/btn-next-normal.gif" Pressed="/VkMusicPlayer;component/Images/btn-next-pressed.gif" Foreground="{x:Null}" Margin="3 0 3 0"/>
+            <Grid Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25px"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60px"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Label Content="{Binding CurrentArtist}" Foreground="#FF2B587A" FontWeight="Bold"/>
+                        <Label Content="–" Margin="-6 0 -6 0"/>
+                        <Label Content="{Binding CurrentTitle}" Foreground="#FF627A94" />
+                    </StackPanel>
+                    <Label Grid.Column="1" Content="{Binding CurrentDuration}" HorizontalAlignment="Center" Foreground="#FF627A94"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="55px"/>
+                    </Grid.ColumnDefinitions>
+                    <Slider Grid.Column="0" Maximum="100"/>
+                    <Slider Grid.Column="1" Value="{Binding Volume}" Maximum="100"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        -->
+        <Grid Grid.Row="1" Margin="5 0 5 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="125px" />
+                <ColumnDefinition Width="80px" />
+            </Grid.ColumnDefinitions>
+            <xctk:WatermarkTextBox Grid.Column="0" Height="25px" Watermark="Поиск" Text="{Binding Path=SearchTextQuery, UpdateSourceTrigger=PropertyChanged}" >
+                <xctk:WatermarkTextBox.InputBindings>
+                    <KeyBinding Command="{Binding Path=SearchCommand}" Key="Return" />
+                </xctk:WatermarkTextBox.InputBindings>
+            </xctk:WatermarkTextBox>
+            <ComboBox Grid.Column="1" Height="25px" SelectedIndex="{Binding Path=SearchTypeIndex}">
+                <ComboBoxItem Content="По композициям"/>
+                <ComboBoxItem Content="По исполнителям"/>
+            </ComboBox>
+            <Button Grid.Column="2" Height="25px" Content="Найти" Margin="5 0 5 0" Command="{Binding Path=SearchCommand}">
+            </Button>
+        </Grid>
+        <xctk:BusyIndicator Grid.Row="2" Panel.ZIndex="1" IsBusy="{Binding Path=IsAppBusy}" BusyContent="Загрузка..." />
+
+        <DataGrid Grid.Row="2" CanUserReorderColumns="False" CanUserResizeColumns="False" SelectedIndex="{Binding Path=SelectedAudioIdx}"
+                  CanUserSortColumns="False" 
+                  HeadersVisibility="None" 
+                  ItemsSource="{Binding Path=AudiosList}" 
+                  AutoGenerateColumns="False" 
+                  CanUserResizeRows="False" 
+                  IsReadOnly="True" 
+                  Background="White"
+                  BorderBrush="{x:Null}" 
+                  Foreground="Black" 
+                  RowHeight="34"  
+                  RenderOptions.BitmapScalingMode="NearestNeighbor" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="IsPlaying">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ToggleButton IsChecked="True"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Artist}" ClipboardContentBinding="{x:Null}" Header="Artist" Width="*" />
+                <DataGridTextColumn Binding="{Binding DurationString}" ClipboardContentBinding="{x:Null}" Header="Duration">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
