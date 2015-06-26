@@ -1,0 +1,44 @@
+﻿<Window x:Class="VkMusicPlayer.View.PlayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cc="clr-namespace:VkMusicPlayer.Styles.Controls"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        Style="{StaticResource VS2012WindowStyle}"
+        Icon="/VkMusicPlayer;component/Images/VK_Logo_Small.png"
+        MinWidth="350px"
+        MinHeight="95px"
+        Name="Player"
+        Title="Музыка ВКонтакте" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46px" />
+            <RowDefinition Height="40px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <cc:VKStreamingPanel
+            PlayingAudio="{Binding Path=DataContext.CurrentAudio, 
+            UpdateSourceTrigger=PropertyChanged,
+            Mode=TwoWay,
+            ElementName=Player}" 
+            Test="{Binding Path=DataContext.SearchValue, Mode=TwoWay, ElementName=Player, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid Grid.Row="1" Margin="5 0 5 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="125px" />
+                <ColumnDefinition Width="80px" />
+            </Grid.ColumnDefinitions>
+            <cc:WatermarkTextBox Grid.Column="0" Height="25px" Text="{Binding Path=SearchValue}" Watermark="Поиск">
+                <cc:WatermarkTextBox.InputBindings>
+                    <KeyBinding Command="{Binding Path=SearchCommand}" Key="Return" />
+                </cc:WatermarkTextBox.InputBindings>
+            </cc:WatermarkTextBox>
+            <ComboBox Grid.Column="1" Height="25px" SelectedIndex="{Binding Path=SearchTypeIndex}">
+                <ComboBoxItem Content="по композициям"/>
+                <ComboBoxItem Content="по исполнителям"/>
+            </ComboBox>
+            <Button Grid.Column="2" Height="25px" Content="Найти" Margin="5 0 5 0" Command="{Binding Path=SearchCommand}" />
+        </Grid>
+        <Label Grid.Row="2" Content="{Binding Path=SearchValue, Mode=OneWay}" Panel.ZIndex="1"/>
+        <Controls:ProgressRing Grid.Row="2" Panel.ZIndex="1" IsActive="{Binding Path=IsAppBusy}" />
+    </Grid>
+</Window>

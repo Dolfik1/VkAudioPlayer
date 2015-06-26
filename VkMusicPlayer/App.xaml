@@ -1,12 +1,20 @@
 ﻿<Application x:Class="VkMusicPlayer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="View/MainWindow.xaml">
+             xmlns:xcpt="http://schemas.xceed.com/wpf/xaml/themes"
+             xmlns:xctt="http://schemas.xceed.com/wpf/xaml/toolkit/themes"
+             StartupUri="View/Login.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/VS2012/VS2012WindowStyle.xaml" />
-                <ResourceDictionary Source="Themes/DataGrid.Generic.xaml"/>
+                <ResourceDictionary Source="Themes/DataGrid.Generic.xaml" />
+                <ResourceDictionary Source="Themes/Button.Generic.xaml" />
+                <ResourceDictionary Source="Themes/TextBox.Generic.xaml" />
+                <ResourceDictionary Source="Themes/ComboBox.Generic.xaml" />
+                
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

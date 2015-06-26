@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,21 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VkMusicPlayer.ViewModel;
 
-namespace VkMusicPlayer.View //Add tray icon
+namespace VkMusicPlayer.View
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для PlayerWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PlayerWindow : Window
     {
-        public MainWindow()
+        public PlayerWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new PlayerWindowViewModel();
         }
     }
 }

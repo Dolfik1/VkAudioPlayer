@@ -8,7 +8,7 @@ using VkNet;
 
 namespace VkMusicPlayer.ViewModel
 {
-    class ViewModelBase
+    class ViewModelBase : INotifyPropertyChanged
     {
         public String DisplayName { get; set; }
 

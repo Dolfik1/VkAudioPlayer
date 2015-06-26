@@ -20,6 +20,7 @@ namespace VkMusicPlayer.ViewModel
         {
             //_vk.Authorize(3541904, "", "", Settings.Audio);
             ReplaceAudiosList(_vk.Audio.Get(0));
+            //CurrentAudio = AudiosList.First();
         }
 
         private void ReplaceAudiosList(IEnumerable<Audio> audios)
@@ -94,7 +95,7 @@ namespace VkMusicPlayer.ViewModel
                 _selectedAudioIdx = value;
                 if (_selectedAudioIdx >= 0 && _selectedAudioIdx - 1 < AudiosList.Count)
                 {
-                    CurrentAudio = AudiosList[_selectedAudioIdx];
+                    ChangeCurrentAudio(AudiosList[_selectedAudioIdx]);
                     //StringAudioIdx = CurrentAudio.Url.ToString();
                 }
                 StringAudioIdx = _selectedAudioIdx.ToString();
@@ -122,6 +123,10 @@ namespace VkMusicPlayer.ViewModel
             }
         }
 
+        private void ChangeCurrentAudio(MyAudio audio)
+        {
+            CurrentAudio = audio;
+        }
         #endregion
 
     }

@@ -58,7 +58,7 @@ namespace VkMusicPlayer.Styles.Controls
             {
                 _volume = value;
                 if (_volumeProvider != null)
-                    _volumeProvider.Volume = _volume / 100;
+                    _volumeProvider.Volume = _volume / 100.0f;
                 RaisePropertyChanged("Volume");
             }
         }
@@ -78,7 +78,13 @@ namespace VkMusicPlayer.Styles.Controls
         public MyAudio PlayingAudio
         {
             get { return (MyAudio)GetValue(PlayingAudioProperty); }
-            set { SetValue(PlayingAudioProperty, value); }
+            set
+            {
+                SetValue(PlayingAudioProperty, value);
+                _playbackState = StreamingPlaybackState.Stopped;
+                PlayExecute();
+                RaisePropertyChanged("PlayingAudio");
+            }
         }
 
         public static readonly DependencyProperty PlayingAudioProperty =
@@ -108,13 +114,36 @@ namespace VkMusicPlayer.Styles.Controls
                 BindsTwoWayByDefault = true,
             });
 
+        private string _currentArtist = "Artist";
+        public string CurrentArtist
+        {
+            get
+            {
+                return _currentArtist;
+            }
+            set
+            {
+                _currentArtist = value;
+                RaisePropertyChanged("CurrentArtist");
+            }
+        }
 
-        public string CurrentArtist { get; set; }
-
-        private string CurrentTitle { get; set; }
+        private string _currentTitle = "Title";
+        public string CurrentTitle
+        {
+            get
+            {
+                return _currentTitle;
+            }
+            set
+            {
+                _currentTitle = value;
+                RaisePropertyChanged("CurrentTitle");
+            }
+        }
 
         #endregion
-        
+
         /*
 
         delegate void ShowErrorDelegate(string message);
@@ -238,6 +267,8 @@ namespace VkMusicPlayer.Styles.Controls
                                 this._bufferedWaveProvider.BufferDuration = TimeSpan.FromSeconds(20); // allow us to get well ahead of ourselves
                                 //this.bufferedWaveProvider.BufferedDuration = 250;
                             }
+                            if (frame == null)
+                                break;
                             int decompressed = decompressor.DecompressFrame(frame, buffer, 0);
                             //Debug.WriteLine(String.Format("Decompressed a frame {0}", decompressed));
                             _bufferedWaveProvider.AddSamples(buffer, 0, decompressed);
@@ -250,6 +281,9 @@ namespace VkMusicPlayer.Styles.Controls
                     // was doing this in a finally block, but for some reason
                     // we are hanging on response stream .Dispose so never get there
                     decompressor.Dispose();
+
+                    if(_playbackState != StreamingPlaybackState.Stopped)
+                        _playbackState = StreamingPlaybackState.Stopped;
                 }
             }
             finally

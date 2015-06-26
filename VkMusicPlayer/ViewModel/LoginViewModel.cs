@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VkMusicPlayer.Commands;
+using VkMusicPlayer.View;
 using VkNet.Enums.Filters;
 using VkNet.Utils;
 
@@ -16,13 +17,27 @@ namespace VkMusicPlayer.ViewModel
     {
         public LoginViewModel()
         {
-
+            RememberPassword = Properties.Settings.Default.RememberPassword;
+            if (RememberPassword == true)
+            {
+                Login = Properties.Settings.Default.Login;
+                Password = Properties.Settings.Default.Password;
+                LoginExecute(App.Current.MainWindow);
+            }
         }
 
         private void LoginExecute(Window window)
         {
             if (!(String.IsNullOrEmpty(Login) || String.IsNullOrEmpty(Password)))
             {
+                if (RememberPassword)
+                {
+                    Properties.Settings.Default.Login = Login;
+                    Properties.Settings.Default.Password = Password;
+                    Properties.Settings.Default.RememberPassword = RememberPassword;
+                    Properties.Settings.Default.Save();
+                }
+
                 Task.Run(() =>
                 {
 
@@ -35,9 +50,12 @@ namespace VkMusicPlayer.ViewModel
 
                     if (x.Exception == null)
                     {
-                        window.Close();
-                        MainWindow win = new MainWindow();
-                        win.Show();
+                        window.Dispatcher.Invoke(() =>
+                        {
+                            MainWindow win = new MainWindow();
+                            win.Show();
+                            window.Close();
+                        });
                     }
                     else
                     {
@@ -97,6 +115,8 @@ namespace VkMusicPlayer.ViewModel
                 RaisePropertyChanged("BusyVisibility");
             }
         }
+
+        public bool RememberPassword { get; set; }
 
         #endregion
 

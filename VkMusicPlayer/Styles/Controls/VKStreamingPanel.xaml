@@ -18,7 +18,7 @@
             <ColumnDefinition Width="20px" />
             <ColumnDefinition Width="10px" />
         </Grid.ColumnDefinitions>
-        <!--
+
         <local:PlayButton Grid.Column="1" Height="22" 
                           Hovered="/VkMusicPlayer;component/Images/btn-play-hovered.gif" 
                           Normal="/VkMusicPlayer;component/Images/btn-play-normal.gif" 
@@ -26,8 +26,10 @@
                           PauseHovered="/VkMusicPlayer;component/Images/btn-play-hovered.gif"
                           PauseNormal="/VkMusicPlayer;component/Images/btn-play-normal.gif"
                           PausePressed="/VkMusicPlayer;component/Images/btn-play-pressed.gif"
+                          IsPlaying="{Binding IsPlaying}"
                           Foreground="{x:Null}" 
                           Click="ImageButton_Click" />
+
         <local:ImageButton Grid.Column="2" 
                            Height="10" 
                            Width="13" 
@@ -43,7 +45,7 @@
                            Normal="/VkMusicPlayer;component/Images/btn-next-normal.gif" 
                            Pressed="/VkMusicPlayer;component/Images/btn-next-pressed.gif" 
                            Foreground="{x:Null}" 
-                           Margin="3 0 3 0"/>-->
+                           Margin="3 0 3 0"/>
         <Grid Grid.Column="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25px"/>
@@ -55,9 +57,9 @@
                     <ColumnDefinition Width="60px"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Label Content="Artist" Foreground="#FF2B587A" FontWeight="Bold"/>
+                    <Label Content="{Binding CurrentArtist}" Foreground="#FF2B587A" FontWeight="Bold"/>
                     <Label Content="–" Margin="-6 0 -6 0"/>
-                    <Label Content="Title" Foreground="#FF627A94" />
+                    <Label Content="{Binding CurrentTitle}" Foreground="#FF627A94" />
                 </StackPanel>
                 <Label Grid.Column="1" Content="{Binding Test}" HorizontalAlignment="Center" Foreground="#FF627A94"/>
             </Grid>

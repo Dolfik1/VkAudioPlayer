@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:cc="clr-namespace:VkMusicPlayer.Styles.Controls">
+    <Color x:Key="ControlForeground">#181818</Color>
+    <Color x:Key="ControlReadOnlyForeground">#383838</Color>
+    <Color x:Key="ControlDisabledForeground">#686868</Color>
+
+    <Color x:Key="ControlBackground">#f7f7f9</Color>
+    <Color x:Key="ControlHoveredBackground">#fafafc</Color>
+    <Color x:Key="ControlFocusedBackground">#fdfdff</Color>
+    <Color x:Key="ControlReadOnlyBackground">#f2f2f4</Color>
+    <Color x:Key="ControlDisabledBackground">#efeff2</Color>
+
+    <Color x:Key="ControlBorder">#383838</Color>
+    <Color x:Key="ControlHoveredBorder">#0BBAE0</Color>
+    <Color x:Key="ControlFocusedBorder">#000000</Color>
+    <Color x:Key="ControlReadOnlyBorder">#484848</Color>
+    <Color x:Key="ControlDisabledBorder">#787878</Color>
+
+    <!-- creating a control template for TextBox -->
+    <ControlTemplate x:Key="TextBoxTemplateBase" TargetType="{x:Type TextBox}">
+        <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+            <!-- main border, styling the border-brush and background for Normal state -->
+            <Border x:Name="normalBorder" 
+                    Background="White"
+                    BorderBrush="#c3cbd4"
+                    BorderThickness="1px"/>
+
+            <!-- TextBox uses a ScrollViewer named PART_ContentHost as its content-presenter -->
+            <ScrollViewer x:Name="PART_ContentHost"
+                          Padding="{TemplateBinding Padding}"
+                          BorderThickness="0" 
+                          IsTabStop="False" 
+                          Margin="2" 
+                          Background="{x:Null}"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" TargetName="normalBorder" Value="#6484a7"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- every TextBox with property Style="{StaticResource TextBoxBaseStyle}" will use this style -->
+    <Style x:Key="TextBoxBaseStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource ControlBackground}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource ControlForeground}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="8 4"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource ControlBorder}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{StaticResource TextBoxTemplateBase}"/>
+    </Style>
+
+    <!-- and if you want to all TextBox `es to use this style, you have to add this line of code: -->
+    <ControlTemplate x:Key="WatermarkTextBoxTemplateBase" TargetType="{x:Type cc:WatermarkTextBox}">
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxBaseStyle}" />
+    <Style x:Key="{x:Type cc:WatermarkTextBox}" TargetType="{x:Type cc:WatermarkTextBox}" BasedOn="{StaticResource TextBoxBaseStyle}">
+    </Style>
+
+
+</ResourceDictionary>
