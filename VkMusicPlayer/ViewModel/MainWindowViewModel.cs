@@ -30,6 +30,8 @@ namespace VkMusicPlayer.ViewModel
             {
                 AudiosList.Add(new MyAudio(audio));
             }
+            if (AudiosList.Count > 0 && SelectedAudioIdx == -1)
+                SelectedAudioIdx = 0;
         }
 
         private void SearchExecute()
@@ -83,7 +85,7 @@ namespace VkMusicPlayer.ViewModel
 
         public string SearchTextQuery { get; set; }
 
-        private int _selectedAudioIdx = 0;
+        private int _selectedAudioIdx = -1;
         public int SelectedAudioIdx
         {
             get
@@ -95,7 +97,7 @@ namespace VkMusicPlayer.ViewModel
                 _selectedAudioIdx = value;
                 if (_selectedAudioIdx >= 0 && _selectedAudioIdx - 1 < AudiosList.Count)
                 {
-                    ChangeCurrentAudio(AudiosList[_selectedAudioIdx]);
+                    CurrentAudio = AudiosList[_selectedAudioIdx];
                     //StringAudioIdx = CurrentAudio.Url.ToString();
                 }
                 StringAudioIdx = _selectedAudioIdx.ToString();
@@ -121,11 +123,6 @@ namespace VkMusicPlayer.ViewModel
                     _searchCommand = new DelegateCommand(SearchExecute);
                 return _searchCommand;
             }
-        }
-
-        private void ChangeCurrentAudio(MyAudio audio)
-        {
-            CurrentAudio = audio;
         }
         #endregion
 

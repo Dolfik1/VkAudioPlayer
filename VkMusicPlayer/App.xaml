@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Themes/Button.Generic.xaml" />
                 <ResourceDictionary Source="Themes/TextBox.Generic.xaml" />
                 <ResourceDictionary Source="Themes/ComboBox.Generic.xaml" />
+                <ResourceDictionary Source="Themes/PlayToggleButton.xaml" />
                 
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />

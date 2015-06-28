@@ -23,9 +23,9 @@
                           Hovered="/VkMusicPlayer;component/Images/btn-play-hovered.gif" 
                           Normal="/VkMusicPlayer;component/Images/btn-play-normal.gif" 
                           Pressed="/VkMusicPlayer;component/Images/btn-play-pressed.gif" 
-                          PauseHovered="/VkMusicPlayer;component/Images/btn-play-hovered.gif"
-                          PauseNormal="/VkMusicPlayer;component/Images/btn-play-normal.gif"
-                          PausePressed="/VkMusicPlayer;component/Images/btn-play-pressed.gif"
+                          PauseHovered="/VkMusicPlayer;component/Images/btn-pause-hovered.gif"
+                          PauseNormal="/VkMusicPlayer;component/Images/btn-pause-normal.gif"
+                          PausePressed="/VkMusicPlayer;component/Images/btn-pause-pressed.gif"
                           IsPlaying="{Binding IsPlaying}"
                           Foreground="{x:Null}" 
                           Click="ImageButton_Click" />
@@ -61,7 +61,7 @@
                     <Label Content="–" Margin="-6 0 -6 0"/>
                     <Label Content="{Binding CurrentTitle}" Foreground="#FF627A94" />
                 </StackPanel>
-                <Label Grid.Column="1" Content="{Binding Test}" HorizontalAlignment="Center" Foreground="#FF627A94"/>
+                <Label Grid.Column="1" Content="{Binding PlayingTime}" HorizontalAlignment="Center" Foreground="#FF627A94"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -69,12 +69,12 @@
                     <ColumnDefinition Width="55px"/>
                 </Grid.ColumnDefinitions>
                 <Slider Grid.Column="0"
-                        Maximum="100" 
+                        Maximum="{Binding PlayingAudioDuration, UpdateSourceTrigger=PropertyChanged}" 
                         IsSelectionRangeEnabled="True" 
                         SelectionStart="0" 
-                        SelectionEnd="{Binding PlayingProgress, UpdateSourceTrigger=PropertyChanged}" 
-                        TickPlacement="BottomRight" 
-                        Value="{Binding PlayingProgress, UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectionEnd="{Binding PlayingProgress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                        Value="{Binding PlayingProgress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        TickPlacement="BottomRight" />
                 <Slider Grid.Column="1" 
                         Maximum="100" 
                         Value="{Binding Volume, UpdateSourceTrigger=PropertyChanged}" 

@@ -81,6 +81,9 @@
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Model\MyAudio.cs" />
+    <Compile Include="Services\Media\Core\MediaPlayerBase.cs" />
+    <Compile Include="Services\Media\Core\NaudioMediaPlayer.cs" />
+    <Compile Include="Services\Media\Core\WmpMediaPlayer.cs" />
     <Compile Include="Styles\Controls\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
@@ -98,13 +101,9 @@
     <Compile Include="Util\ReadFullyStream.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="ViewModel\PlayerWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PlayerWindow.xaml.cs">
-      <DependentUpon>PlayerWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -146,6 +145,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\PlayToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Slider.Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,10 +174,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Login.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PlayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,6 +243,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btn-pause-hovered.gif" />
+    <Resource Include="Images\btn-pause-normal.gif" />
+    <Resource Include="Images\btn-pause-pressed.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

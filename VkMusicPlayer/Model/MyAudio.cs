@@ -16,6 +16,7 @@ namespace VkMusicPlayer.Model
         {
             AlbumId = audio.AlbumId;
             Artist = audio.Artist;
+            Duration = audio.Duration;
             DurationString = StringHelper.SecondsToTimeString(audio.Duration);
             Genre = audio.Genre;
             Id = audio.Id;
@@ -61,6 +62,8 @@ namespace VkMusicPlayer.Model
                 SetValue(DurationStringProperty, value);
             }
         }
+        
+        public int Duration { get; set; }
 
         public long? AlbumId { get; set; }
 

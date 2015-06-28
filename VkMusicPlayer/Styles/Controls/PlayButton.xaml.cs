@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace VkMusicPlayer.Styles.Controls
     /// <summary>
     /// Логика взаимодействия для PlayButton.xaml
     /// </summary>
-    public partial class PlayButton : UserControl
+    public partial class PlayButton : UserControl, INotifyPropertyChanged
     {
         public PlayButton()
         {
@@ -70,13 +71,7 @@ namespace VkMusicPlayer.Styles.Controls
 
         public ImageSource Normal
         {
-            get
-            {
-                if (IsPlaying)
-                    return (ImageSource) GetValue(NormalProperty);
-                else
-                    return (ImageSource) GetValue(PauseNormalProperty);
-            }
+            get { return (ImageSource) GetValue(NormalProperty); }
             set { SetValue(NormalProperty, value); }
         }
 
@@ -86,13 +81,7 @@ namespace VkMusicPlayer.Styles.Controls
 
         public ImageSource Hovered
         {
-            get
-            {
-                if(IsPlaying)
-                    return (ImageSource)GetValue(HoveredProperty);
-                else
-                    return (ImageSource)GetValue(PauseHoveredProperty);
-            }
+            get { return (ImageSource)GetValue(HoveredProperty); }
             set { SetValue(HoveredProperty, value); }
         }
 
@@ -102,13 +91,7 @@ namespace VkMusicPlayer.Styles.Controls
 
         public ImageSource Pressed
         {
-            get
-            {
-                if (IsPlaying)
-                    return (ImageSource) GetValue(PressedProperty);
-                else
-                    return (ImageSource) GetValue(PausePressedProperty);
-            }
+            get { return (ImageSource) GetValue(PressedProperty); }
             set { SetValue(PressedProperty, value); }
         }
 
@@ -130,5 +113,19 @@ namespace VkMusicPlayer.Styles.Controls
             if (Click != null)
                 Click(sender, e);
         }
+
+        #region INotifyPropertyChanged Members
+
+        protected void RaisePropertyChanged(string p)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
     }
 }

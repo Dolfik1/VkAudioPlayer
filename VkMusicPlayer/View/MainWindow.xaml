@@ -15,55 +15,9 @@
             <RowDefinition Height="40px" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <cc:VKStreamingPanel
-            PlayingAudio="{Binding Path=DataContext.CurrentAudio, 
-            UpdateSourceTrigger=PropertyChanged,
-            ElementName=ThisWindow}" 
-            Test="{Binding Path=DataContext.SearchValue, Mode=TwoWay, ElementName=ThisWindow, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="0" Width="50" HorizontalAlignment="Right" Panel.ZIndex="5" Content="{Binding Path=StringAudioIdx}"/>
-        <!--
-        <Grid Grid.Row="0" Background="#F0F1F2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10px" />
-                <ColumnDefinition Width="22px" />
-                <ColumnDefinition Width="21px" />
-                <ColumnDefinition Width="21px" />
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="20px"/>
-                <ColumnDefinition Width="20px" />
-                <ColumnDefinition Width="10px" />
-            </Grid.ColumnDefinitions>
-            <cc:ImageButton Grid.Column="1" Height="22" Hovered="/VkMusicPlayer;component/Images/btn-play-hovered.gif" Normal="/VkMusicPlayer;component/Images/btn-play-normal.gif" Pressed="/VkMusicPlayer;component/Images/btn-play-pressed.gif" Foreground="{x:Null}" ImageButtonCommand="{Binding PlayCommand}"/>
-            <cc:ImageButton Grid.Column="2" Height="10" Width="13" Hovered="/VkMusicPlayer;component/Images/btn-prev-hovered.gif" Normal="/VkMusicPlayer;component/Images/btn-prev-normal.gif" Pressed="/VkMusicPlayer;component/Images/btn-prev-pressed.gif" Foreground="{x:Null}" Margin="3 0 3 0"/>
-            <cc:ImageButton Grid.Column="3" Height="10" Width="13" Hovered="/VkMusicPlayer;component/Images/btn-next-hovered.gif" Normal="/VkMusicPlayer;component/Images/btn-next-normal.gif" Pressed="/VkMusicPlayer;component/Images/btn-next-pressed.gif" Foreground="{x:Null}" Margin="3 0 3 0"/>
-            <Grid Grid.Column="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25px"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="60px"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Label Content="{Binding CurrentArtist}" Foreground="#FF2B587A" FontWeight="Bold"/>
-                        <Label Content="–" Margin="-6 0 -6 0"/>
-                        <Label Content="{Binding CurrentTitle}" Foreground="#FF627A94" />
-                    </StackPanel>
-                    <Label Grid.Column="1" Content="{Binding CurrentDuration}" HorizontalAlignment="Center" Foreground="#FF627A94"/>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="55px"/>
-                    </Grid.ColumnDefinitions>
-                    <Slider Grid.Column="0" Maximum="100"/>
-                    <Slider Grid.Column="1" Value="{Binding Volume}" Maximum="100"/>
-                </Grid>
-            </Grid>
-        </Grid>
-        -->
+        <cc:VKStreamingPanel 
+            Playlist="{Binding Path=DataContext.AudiosList, UpdateSourceTrigger=PropertyChanged, ElementName=ThisWindow, Mode=TwoWay}"
+            PlayingAudioIdx="{Binding Path=DataContext.SelectedAudioIdx, UpdateSourceTrigger=PropertyChanged, ElementName=ThisWindow, Mode=TwoWay}"/>
         <Grid Grid.Row="1" Margin="5 0 5 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -84,7 +38,6 @@
             </Button>
         </Grid>
         <Controls:ProgressRing Grid.Row="2" Panel.ZIndex="1" IsActive="{Binding Path=IsAppBusy}" />
-
         <DataGrid Grid.Row="2" CanUserReorderColumns="False" CanUserResizeColumns="False" SelectedIndex="{Binding Path=SelectedAudioIdx}"
                   CanUserSortColumns="False" 
                   HeadersVisibility="None" 
@@ -98,14 +51,15 @@
                   RowHeight="34"  
                   RenderOptions.BitmapScalingMode="NearestNeighbor" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="IsPlaying">
+                <DataGridTemplateColumn Header="IsPlaying" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ToggleButton IsChecked="True"/>
+                            <ToggleButton IsChecked="{Binding IsPlaying}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding Artist}" ClipboardContentBinding="{x:Null}" Header="Artist" Width="*" />
+                <DataGridTextColumn Binding="{Binding Title}" ClipboardContentBinding="{x:Null}" Header="Title" Width="*" />
                 <DataGridTextColumn Binding="{Binding DurationString}" ClipboardContentBinding="{x:Null}" Header="Duration">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">

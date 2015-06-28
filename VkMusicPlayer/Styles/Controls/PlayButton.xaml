@@ -24,20 +24,71 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsPlaying}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="{Binding PauseNormal, ElementName=uc}" Stretch="None"/>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsPlaying}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="{Binding Normal, ElementName=uc}" Stretch="None"/>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsMouseOver}" Value="True" />
+                            <Condition Binding="{Binding Path=IsPlaying}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="{Binding PauseHovered, ElementName=uc}" Stretch="None"/>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsMouseOver}" Value="True" />
+                            <Condition Binding="{Binding Path=IsPlaying}" Value="False" />
+                        </MultiDataTrigger.Conditions>
                         <Setter Property="Background">
                             <Setter.Value>
                                 <ImageBrush ImageSource="{Binding Hovered, ElementName=uc}" Stretch="None"/>
                             </Setter.Value>
                         </Setter>
-                    </Trigger>
-                    <Trigger Property="IsPressed" Value="True">
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsPressed}" Value="True" />
+                            <Condition Binding="{Binding Path=IsPlaying}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="{Binding PausePressed, ElementName=uc}" Stretch="None"/>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=IsPressed}" Value="True" />
+                            <Condition Binding="{Binding Path=IsPlaying}" Value="False" />
+                        </MultiDataTrigger.Conditions>
                         <Setter Property="Background">
                             <Setter.Value>
                                 <ImageBrush ImageSource="{Binding Pressed, ElementName=uc}" Stretch="None"/>
                             </Setter.Value>
                         </Setter>
-                    </Trigger>
+                    </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
         </Button.Style>
